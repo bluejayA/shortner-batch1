@@ -3,8 +3,8 @@ package service
 import (
 	"context"
 
-	"github.com/jay-ahn/shortner/internal/model"
-	"github.com/jay-ahn/shortner/internal/repository"
+	"github.com/bluejayA/shortner-batch1/internal/model"
+	"github.com/bluejayA/shortner-batch1/internal/repository"
 )
 
 // statsService는 StatsService의 구현체다.

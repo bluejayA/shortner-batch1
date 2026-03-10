@@ -8,8 +8,8 @@ import (
 	"testing"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/jay-ahn/shortner/internal/handler"
-	"github.com/jay-ahn/shortner/internal/model"
+	"github.com/bluejayA/shortner-batch1/internal/handler"
+	"github.com/bluejayA/shortner-batch1/internal/model"
 )
 
 // mockAuthServiceForHandler는 핸들러 테스트용 AuthService 목이다.

@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 
-	"github.com/jay-ahn/shortner/internal/model"
+	"github.com/bluejayA/shortner-batch1/internal/model"
 )
 
 // postgresStatsRepository는 PostgreSQL 기반 StatsRepository 구현체다.

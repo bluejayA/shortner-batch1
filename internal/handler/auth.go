@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/jay-ahn/shortner/internal/service"
+	"github.com/bluejayA/shortner-batch1/internal/service"
 )
 
 // AuthHandler는 API 키 관련 HTTP 핸들러다.

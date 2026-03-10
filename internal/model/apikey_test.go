@@ -3,7 +3,7 @@ package model_test
 import (
 	"testing"
 
-	"github.com/jay-ahn/shortner/internal/model"
+	"github.com/bluejayA/shortner-batch1/internal/model"
 )
 
 func TestAPIKey_HashKey(t *testing.T) {

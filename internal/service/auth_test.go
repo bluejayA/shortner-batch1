@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jay-ahn/shortner/internal/model"
-	"github.com/jay-ahn/shortner/internal/service"
+	"github.com/bluejayA/shortner-batch1/internal/model"
+	"github.com/bluejayA/shortner-batch1/internal/service"
 )
 
 // mockAPIKeyRepo는 테스트용 APIKeyRepository 목(mock)이다.

@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/jay-ahn/shortner/internal/service"
+	"github.com/bluejayA/shortner-batch1/internal/service"
 )
 
 // AuthMiddleware는 API 키 인증 미들웨어다.

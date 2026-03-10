@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/jay-ahn/shortner/internal/model"
+	"github.com/bluejayA/shortner-batch1/internal/model"
 )
 
 // postgresURLRepository는 PostgreSQL 기반 URLRepository 구현체다.

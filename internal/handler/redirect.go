@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/jay-ahn/shortner/internal/service"
+	"github.com/bluejayA/shortner-batch1/internal/service"
 )
 
 // RedirectHandler는 단축 URL 리다이렉트 핸들러다.

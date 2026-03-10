@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/jay-ahn/shortner/internal/model"
+	"github.com/bluejayA/shortner-batch1/internal/model"
 )
 
 // postgresAPIKeyRepository는 PostgreSQL 기반 APIKeyRepository 구현체다.

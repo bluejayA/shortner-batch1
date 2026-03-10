@@ -5,8 +5,8 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	chiMiddleware "github.com/go-chi/chi/v5/middleware"
-	"github.com/jay-ahn/shortner/internal/handler"
-	"github.com/jay-ahn/shortner/internal/middleware"
+	"github.com/bluejayA/shortner-batch1/internal/handler"
+	"github.com/bluejayA/shortner-batch1/internal/middleware"
 )
 
 // NewRouter는 모든 핸들러와 미들웨어를 조립한 chi 라우터를 반환한다.

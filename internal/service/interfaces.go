@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/jay-ahn/shortner/internal/model"
+	"github.com/bluejayA/shortner-batch1/internal/model"
 )
 
 // AuthService는 API 키 인증 비즈니스 로직 인터페이스다.

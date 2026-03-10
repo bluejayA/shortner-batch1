@@ -3,7 +3,7 @@ package repository
 import (
 	"context"
 
-	"github.com/jay-ahn/shortner/internal/model"
+	"github.com/bluejayA/shortner-batch1/internal/model"
 )
 
 // APIKeyRepository는 API 키 영속성 레이어 인터페이스다.

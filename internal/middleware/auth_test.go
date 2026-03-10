@@ -6,8 +6,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/jay-ahn/shortner/internal/middleware"
-	"github.com/jay-ahn/shortner/internal/model"
+	"github.com/bluejayA/shortner-batch1/internal/middleware"
+	"github.com/bluejayA/shortner-batch1/internal/model"
 )
 
 // mockAuthService는 테스트용 AuthService 목이다.

@@ -6,9 +6,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jay-ahn/shortner/internal/cache"
-	"github.com/jay-ahn/shortner/internal/model"
-	"github.com/jay-ahn/shortner/internal/service"
+	"github.com/bluejayA/shortner-batch1/internal/cache"
+	"github.com/bluejayA/shortner-batch1/internal/model"
+	"github.com/bluejayA/shortner-batch1/internal/service"
 )
 
 // mockURLRepo는 테스트용 URLRepository 목이다.

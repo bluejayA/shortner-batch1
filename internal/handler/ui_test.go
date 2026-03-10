@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/jay-ahn/shortner/internal/handler"
+	"github.com/bluejayA/shortner-batch1/internal/handler"
 )
 
 func TestUIHandler_Get(t *testing.T) {

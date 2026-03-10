@@ -1,4 +1,4 @@
-module github.com/jay-ahn/shortner
+module github.com/bluejayA/shortner-batch1
 
 go 1.26.1
 

@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jay-ahn/shortner/internal/model"
+	"github.com/bluejayA/shortner-batch1/internal/model"
 )
 
 func TestURL_IsExpired(t *testing.T) {

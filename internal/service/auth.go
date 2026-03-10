@@ -5,8 +5,8 @@ import (
 	"crypto/rand"
 	"encoding/hex"
 
-	"github.com/jay-ahn/shortner/internal/model"
-	"github.com/jay-ahn/shortner/internal/repository"
+	"github.com/bluejayA/shortner-batch1/internal/model"
+	"github.com/bluejayA/shortner-batch1/internal/repository"
 )
 
 // authService는 AuthService의 구현체다.

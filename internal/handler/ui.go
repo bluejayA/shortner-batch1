@@ -3,7 +3,7 @@ package handler
 import (
 	"net/http"
 
-	"github.com/jay-ahn/shortner/internal/static"
+	"github.com/bluejayA/shortner-batch1/internal/static"
 )
 
 // UIHandler는 웹 UI HTML 페이지를 서빙하는 핸들러다.

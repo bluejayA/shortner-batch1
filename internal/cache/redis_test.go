@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jay-ahn/shortner/internal/cache"
+	"github.com/bluejayA/shortner-batch1/internal/cache"
 )
 
 // Cache 인터페이스가 존재하는지 컴파일 타임 검증

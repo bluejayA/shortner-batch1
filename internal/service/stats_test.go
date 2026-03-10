@@ -4,8 +4,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/jay-ahn/shortner/internal/model"
-	"github.com/jay-ahn/shortner/internal/service"
+	"github.com/bluejayA/shortner-batch1/internal/model"
+	"github.com/bluejayA/shortner-batch1/internal/service"
 )
 
 // mockStatsRepo는 테스트용 StatsRepository 목이다.

@@ -8,11 +8,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jay-ahn/shortner/internal/handler"
-	"github.com/jay-ahn/shortner/internal/middleware"
-	"github.com/jay-ahn/shortner/internal/model"
-	"github.com/jay-ahn/shortner/internal/server"
-	"github.com/jay-ahn/shortner/internal/service"
+	"github.com/bluejayA/shortner-batch1/internal/handler"
+	"github.com/bluejayA/shortner-batch1/internal/middleware"
+	"github.com/bluejayA/shortner-batch1/internal/model"
+	"github.com/bluejayA/shortner-batch1/internal/server"
+	"github.com/bluejayA/shortner-batch1/internal/service"
 )
 
 // --- mock 서비스 ---
