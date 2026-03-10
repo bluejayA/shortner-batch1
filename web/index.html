@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shortner</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f5f5f5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 16px;
+      color: #1a1a1a;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 40px;
+      font-size: 0.95rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px;
+      width: 100%;
+      max-width: 520px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+    }
+
+    .card h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #555;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"], input[type="url"] {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.15s;
+      margin-bottom: 12px;
+    }
+
+    input:focus { border-color: #4f46e5; }
+
+    button {
+      width: 100%;
+      padding: 11px;
+      background: #4f46e5;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    button:hover { background: #4338ca; }
+    button:disabled { background: #a5b4fc; cursor: not-allowed; }
+
+    .result {
+      margin-top: 16px;
+      padding: 14px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .result.error {
+      background: #fef2f2;
+      border-color: #fecaca;
+    }
+
+    .result-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .result-url {
+      flex: 1;
+      font-family: monospace;
+      font-size: 0.95rem;
+      color: #166534;
+      word-break: break-all;
+    }
+
+    .copy-btn {
+      width: auto;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      background: #16a34a;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    .copy-btn:hover { background: #15803d; }
+
+    .stats-display {
+      text-align: center;
+      padding: 8px 0;
+    }
+
+    .stats-count {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #4f46e5;
+    }
+
+    .stats-label {
+      font-size: 0.85rem;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    .api-key-status {
+      font-size: 0.78rem;
+      color: #888;
+      text-align: right;
+      margin-top: -8px;
+      margin-bottom: 12px;
+    }
+
+    .api-key-status.ready { color: #16a34a; }
+  </style>
+</head>
+<body>
+  <h1>🔗 Shortner</h1>
+  <p class="subtitle">긴 URL을 짧게 만들어보세요</p>
+
+  <!-- URL 단축 카드 -->
+  <div class="card">
+    <h2>URL 단축</h2>
+    <div id="keyStatus" class="api-key-status">API 키 준비 중...</div>
+
+    <label for="urlInput">원본 URL</label>
+    <input type="url" id="urlInput" placeholder="https://example.com/very/long/url" />
+
+    <label for="aliasInput">커스텀 alias (선택)</label>
+    <input type="text" id="aliasInput" placeholder="my-link" />
+
+    <button id="shortenBtn" onclick="shortenURL()" disabled>단축하기</button>
+
+    <div id="shortenResult" class="result">
+      <div class="result-row">
+        <span id="shortURL" class="result-url"></span>
+        <button class="copy-btn" onclick="copyURL()">복사</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 통계 조회 카드 -->
+  <div class="card">
+    <h2>클릭 통계 조회</h2>
+    <label for="statsSlug">Slug</label>
+    <input type="text" id="statsSlug" placeholder="abc123" />
+    <button onclick="getStats()">통계 보기</button>
+
+    <div id="statsResult" class="result">
+      <div class="stats-display">
+        <div id="clickCount" class="stats-count">0</div>
+        <div class="stats-label">총 클릭 수</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // API 키 관리 — sessionStorage에 보관
+    let apiKey = sessionStorage.getItem('shortner_api_key');
+
+    async function initAPIKey() {
+      if (apiKey) {
+        setKeyReady();
+        return;
+      }
+      try {
+        const res = await fetch('/api/keys', { method: 'POST' });
+        const data = await res.json();
+        apiKey = data.key;
+        sessionStorage.setItem('shortner_api_key', apiKey);
+        setKeyReady();
+      } catch (e) {
+        document.getElementById('keyStatus').textContent = 'API 키 발급 실패';
+      }
+    }
+
+    function setKeyReady() {
+      const el = document.getElementById('keyStatus');
+      el.textContent = '✓ API 키 준비됨';
+      el.classList.add('ready');
+      document.getElementById('shortenBtn').disabled = false;
+    }
+
+    async function shortenURL() {
+      const url = document.getElementById('urlInput').value.trim();
+      const alias = document.getElementById('aliasInput').value.trim();
+      const resultEl = document.getElementById('shortenResult');
+
+      if (!url) return;
+
+      const body = { url };
+      if (alias) body.alias = alias;
+
+      try {
+        const res = await fetch('/api/urls', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`,
+          },
+          body: JSON.stringify(body),
+        });
+
+        resultEl.style.display = 'block';
+
+        if (!res.ok) {
+          resultEl.className = 'result error';
+          document.getElementById('shortURL').textContent = '단축 실패: ' + res.status;
+          return;
+        }
+
+        const data = await res.json();
+        const shortURL = window.location.origin + '/' + data.slug;
+        resultEl.className = 'result';
+        document.getElementById('shortURL').textContent = shortURL;
+        document.getElementById('statsSlug').value = data.slug;
+      } catch (e) {
+        resultEl.style.display = 'block';
+        resultEl.className = 'result error';
+        document.getElementById('shortURL').textContent = '오류 발생';
+      }
+    }
+
+    async function getStats() {
+      const slug = document.getElementById('statsSlug').value.trim();
+      const resultEl = document.getElementById('statsResult');
+
+      if (!slug) return;
+
+      try {
+        const res = await fetch(`/api/stats/${slug}`, {
+          headers: { 'Authorization': `Bearer ${apiKey}` },
+        });
+
+        resultEl.style.display = 'block';
+
+        if (!res.ok) {
+          resultEl.className = 'result error';
+          document.getElementById('clickCount').textContent = '—';
+          return;
+        }
+
+        const data = await res.json();
+        resultEl.className = 'result';
+        document.getElementById('clickCount').textContent = data.click_count;
+      } catch (e) {
+        resultEl.style.display = 'block';
+        resultEl.className = 'result error';
+      }
+    }
+
+    // URL 복사
+    function copyURL() {
+      const url = document.getElementById('shortURL').textContent;
+      navigator.clipboard.writeText(url).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        btn.textContent = '복사됨!';
+        setTimeout(() => btn.textContent = '복사', 1500);
+      });
+    }
+
+    // Enter 키 지원
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('urlInput').addEventListener('keydown', e => {
+        if (e.key === 'Enter') shortenURL();
+      });
+      document.getElementById('statsSlug').addEventListener('keydown', e => {
+        if (e.key === 'Enter') getStats();
+      });
+      initAPIKey();
+    });
+  </script>
+</body>
+</html>
